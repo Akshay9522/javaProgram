@@ -18,6 +18,11 @@ public class Main {
         //duplicateNum2();
        // ascendArray();
        // charOccurence("dghddghfhgdfdfhdhg");
+        //System.out.println(findPrimeNum(10,100));
+        //System.out.println(reveseStringbyFullName("Akshay Surendra Shinde"));
+        //System.out.println(nameInitial("Akshay Surendra Shinde"));
+       // System.out.println(reveseString("Akshay Surendra Shinde"));
+
 
 
     }
@@ -50,9 +55,6 @@ public class Main {
         }
         return "After reversing String = " + revString;
     }
-
-    ;
-
     public static String reveseStringbyArray(String test) {
         System.out.println("Given String = " + test);
         char[] testArray = test.toCharArray();
@@ -61,6 +63,40 @@ public class Main {
             revString = revString + testArray[i];
         }
         return "After reversing String = " + revString;
+    }
+    public static String reveseString(String test) {
+        System.out.println("Given String = " + test);
+        String [] testArray = test.split(" ");
+        String revString = "";
+        for (int i = testArray.length - 1; i >= 0; i--) {
+            revString = revString + testArray[i]+" ";
+        }
+        return "After reversing String = " + revString;
+    }
+    public static String nameInitial(String test) {
+        System.out.println("Given String = " + test);
+        String [] testArray = test.split(" ");
+        String revString = "";
+        for (int i = 0; i < testArray.length; i++) {
+            if (i==0 || i==1){
+                revString = revString + testArray[i].charAt(0)+". ";
+            }
+            if(i==2){
+                revString=revString+testArray[i];
+            }
+        }
+        return "After reversing String = " + revString;
+    }
+    public static String reveseStringbyFullName(String test) {
+        String res = "";
+        System.out.println("Given String = " + test);
+        String [] testArray = test.split(" ");
+for (int i=0;i<testArray.length;i++){
+    StringBuilder stb = new StringBuilder(testArray[i]);
+    res = res+ stb.reverse()+" ";
+}
+
+        return "After reversing String = " + res;
     }
 
     ;
@@ -150,9 +186,6 @@ public class Main {
         }
         return revNum;
     }
-
-    ;
-
     public static void isAnagram(String str1, String str2) {
         char[] strig1 = str1.toCharArray();
         char[] strig2 = str2.toCharArray();
@@ -214,5 +247,23 @@ public class Main {
             }
         }
         System.out.println(hm);
+    }
+    public static ArrayList<Integer> findPrimeNum(int num1, int num2) {
+        ArrayList<Integer> arls = new ArrayList<>();
+        int count = 0;
+        if (num1 > 1) {
+            for (int i = num1; i <= num2; i++) {
+                for (int k = 2; k < i; k++) {
+                    if ((i % k == 0)) {
+                        count++;
+
+                    }
+                }if (count==0){
+                    arls.add(i);
+                }
+                count=0;
+            }
+        }
+        return  arls;
     }
 }
