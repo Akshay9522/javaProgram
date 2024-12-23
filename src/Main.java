@@ -22,9 +22,8 @@ public class Main {
         //System.out.println(reveseStringbyFullName("Akshay Surendra Shinde"));
         //System.out.println(nameInitial("Akshay Surendra Shinde"));
        // System.out.println(reveseString("Akshay Surendra Shinde"));
-
-
-
+        removeDuplicate1();
+        removeDuplicate2();
     }
 
     public static String swappingTwoNumbyThirdvari(int a, int b) {
@@ -220,6 +219,42 @@ for (int i=0;i<testArray.length;i++){
         }
         System.out.println(hashset);
     }
+    public static void removeDuplicate1() {
+        int[] num = {1, 2, 3, 1, 4, 5, 2};
+        HashSet<Integer> hashset = new HashSet<>();
+        for (int i=0; i<num.length;i++){
+            hashset.add(num[i]);
+                }
+        System.out.println(hashset);
+    }
+    public static void removeDuplicate2() {
+        int[] num = {1, 2, 3, 1, 4, 5, 2};
+        int j = 0;
+        boolean flag;
+        int[] finalArray = new int[num.length];
+
+        // Removing duplicates
+        for (int i = 0; i < num.length; i++) {
+            flag = false;
+            for (int k = 0; k < j; k++) { // Check against elements in finalArray
+                if (num[i] == finalArray[k]) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) {
+                finalArray[j++] = num[i]; // Add unique element to finalArray
+            }
+        }
+
+        // Printing the final array (only filled elements)
+        System.out.println("Array without duplicates:");
+        for (int i = 0; i < j; i++) {
+            System.out.print(finalArray[i] + " ");
+        }
+        System.out.println();
+    }
+
     public static void ascendArray() {
         int[] num = {1, 2, 3, 1, 4, 5, 2};
         ArrayList<Integer> list = new ArrayList<>();
