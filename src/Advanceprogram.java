@@ -15,12 +15,13 @@ public class Advanceprogram {
      //   String str= "My name is Rajat";
       //  sortAlphabaticalOrder(str);
         //6)Write a Java program to the right that rotates the elements of an array by N.
-        rotate(new int[]{1,2,3,4,5},2);
+        //rotate(new int[]{1,2,3,4,5},2);
         //7)2,7,10 Print the values that are missing between these elements. but not input value(2,7,10)
        // printtheMissingNumber(new int[]{2,7,10});
 // 8)check subset of Array
       //  checkSubsetOfArr(new int[]{2,4,6,7,8,0}, new int[]{6,12,0});
         // check muliselce complete all coding questions, Jenkins, github hashmap
+        printTimesCharacter("a1b2c3");
     }
 
     public static void removeExtraCharacterChangeCase(String test){
@@ -140,4 +141,20 @@ public class Advanceprogram {
             end--;
         }
     }
+    public static void printTimesCharacter(String test){
+        int len = test.length();
+        for(int i=0; i<len; i++){
+//            if(i==len-1){
+//               break;
+//            }
+            //If Single & used need above code
+            if(Character.isLetter(test.charAt(i))&&Character.isDigit(test.charAt(i+1))){
+                int printTimes = Character.getNumericValue(test.charAt(i+1));
+                for(int j=1; j<=printTimes; j++){
+                    System.out.print(test.charAt(i));
+                }
+            }
+        }
+    }
+
 }
