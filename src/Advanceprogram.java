@@ -34,7 +34,7 @@ public class Advanceprogram {
             words[i] = words[i].substring(0, len - 1).toLowerCase() + words[i].substring(len - 1).toUpperCase();
         }
         for(String str:words){
-           res  = res+ str+" ";
+           res  = res+ str+" ";//
         }
         System.out.println(res);
     }
