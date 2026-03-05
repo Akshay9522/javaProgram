@@ -5,7 +5,7 @@ public class Anagram {
     public static void main(String[] args) {
         String test1 = "listen";
         String test2 = "silent1";
-//
+////
         char [] arrTest1 = test1.toLowerCase().toCharArray();
         char [] arrTest2 = test2.toLowerCase().toCharArray();
 
