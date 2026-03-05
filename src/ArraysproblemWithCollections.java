@@ -5,7 +5,7 @@ import java.util.LinkedHashSet;
 public class ArraysproblemWithCollections {
 
     public static void main(String[] args) {
-        characterOccurence("jhffggkg".toCharArray());
+        characterOccurence("jhffggkg".toCharArray());//
         int[] number = {2,3,2,3,3,3,55,55,3,2,6666,74,23};
         removeDuplicat(number);
         printDuplicate(number);
