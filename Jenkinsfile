@@ -6,10 +6,6 @@ pipeline {
         cron('H/8 * * * *')   // Run regression every 8 minutes
     }
 
-    environment {
-        ENV = "DEV"
-    }
-
     stages {
 
         stage('Clean Workspace') {
@@ -40,7 +36,7 @@ pipeline {
                 bat """
                 mvn clean test ^
                 -DsuiteXmlFile=smoke_testng.xml ^
-                -Denv=%ENV%
+                -Denv=dev
                 """
             }
         }
@@ -55,7 +51,7 @@ pipeline {
                 bat """
                 mvn clean test ^
                 -DsuiteXmlFile=regression_testng.xml ^
-                -Denv=%ENV%
+                -Denv=qa
                 """
             }
         }
