@@ -1,9 +1,14 @@
 pipeline {
     agent any
 
+    environment {
+        SMOKE_ENV = "dev"
+        REG_ENV = "qa"
+    }
+
     triggers {
         githubPush()
-        cron('H/8 * * * *')   // Run regression every 8 minutes
+        cron('H/5 * * * *')   // Run regression every 5 minutes
     }
 
     stages {
@@ -31,12 +36,12 @@ pipeline {
                 not { triggeredBy 'TimerTrigger' }
             }
             steps {
-                echo 'Running Smoke Tests (Developer Commit)...'
+                echo "Running Smoke Tests on ${env.SMOKE_ENV}"
 
                 bat """
                 mvn clean test ^
                 -DsuiteXmlFile=smoke_testng.xml ^
-                -Denv=dev
+                -Denv=${env.SMOKE_ENV}
                 """
             }
         }
@@ -46,12 +51,12 @@ pipeline {
                 triggeredBy 'TimerTrigger'
             }
             steps {
-                echo 'Running Regression Tests (Every 8 Minutes)...'
+                echo "Running Regression Tests on ${env.REG_ENV}"
 
                 bat """
                 mvn clean test ^
                 -DsuiteXmlFile=regression_testng.xml ^
-                -Denv=qa
+                -Denv=${env.REG_ENV}
                 """
             }
         }
@@ -68,7 +73,8 @@ Automation Test Execution Completed
 
 Job Name: ${env.JOB_NAME}
 Build Number: ${env.BUILD_NUMBER}
-Environment: ${ENV}
+Smoke Environment: ${env.SMOKE_ENV}
+Regression Environment: ${env.REG_ENV}
 Status: ${currentBuild.currentResult}
 
 Build URL:
