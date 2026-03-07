@@ -23,14 +23,14 @@ pipeline {
         stage('Run Smoke Tests') {
             steps {
                 echo 'Running Smoke Tests...'
-                bat 'mvn clean test -DsuiteXmlFile=SmokeTestng.xml'
+                bat 'mvn clean test -DsuiteXmlFile=smoke_testng.xml'
             }
         }
 
         stage('Run Regression Tests') {
             steps {
                 echo 'Running Regression Tests...'
-                bat 'mvn test -DsuiteXmlFile=RegressionTestng.xml'
+                bat 'mvn test -DsuiteXmlFile=regression_testng.xml'
             }
         }
     }
