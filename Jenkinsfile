@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     triggers {
-        githubPush()        // Run when developer commits
-        cron('0 19 * * *')  // Run regression daily at 7 PM
+        githubPush()
+        cron('0 19 * * *')   // 7 PM Regression
     }
 
     stages {
@@ -22,7 +22,7 @@ pipeline {
 
         stage('Run Smoke Tests') {
             when {
-                triggeredBy 'SCMTrigger'
+                not { triggeredBy 'TimerTrigger' }
             }
             steps {
                 echo 'Running Smoke Tests (Developer Commit)...'
@@ -35,7 +35,7 @@ pipeline {
                 triggeredBy 'TimerTrigger'
             }
             steps {
-                echo 'Running Regression Tests (7 PM Schedule)...'
+                echo 'Running Regression Tests (Scheduled 7 PM)...'
                 bat 'mvn clean test -DsuiteXmlFile=regression_testng.xml'
             }
         }
