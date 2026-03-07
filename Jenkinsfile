@@ -3,6 +3,7 @@ pipeline {
 
     triggers {
         githubPush()
+        cron('H/5 * * * *')
     }
 
     stages {
@@ -13,10 +14,17 @@ pipeline {
             }
         }
 
-        stage('Run Automation') {
+        stage('Run Smoke Tests') {
             steps {
-                echo 'Running automation from Repo XYZ...'
-                bat 'mvn clean test'
+                echo 'Running Smoke Tests...'
+                bat 'mvn test -DsuiteXmlFile=smoke_testng.xml'
+            }
+        }
+
+        stage('Run Regression Tests Every 5 Minutes') {
+            steps {
+                echo 'Running Regression Tests...'
+                bat 'mvn test -DsuiteXmlFile=regression_testng.xml'
             }
         }
 
