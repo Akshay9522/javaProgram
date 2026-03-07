@@ -3,7 +3,11 @@ pipeline {
 
     triggers {
         githubPush()
-        cron('0 19 * * *')   // 7 PM Regression
+        cron('H/8 * * * *')   // Run regression every 8 minutes
+    }
+
+    environment {
+        ENV = "DEV"
     }
 
     stages {
@@ -20,13 +24,24 @@ pipeline {
             }
         }
 
+        stage('Verify Maven') {
+            steps {
+                bat 'mvn -version'
+            }
+        }
+
         stage('Run Smoke Tests') {
             when {
                 not { triggeredBy 'TimerTrigger' }
             }
             steps {
                 echo 'Running Smoke Tests (Developer Commit)...'
-                bat 'mvn clean test -DsuiteXmlFile=smoke_testng.xml'
+
+                bat """
+                mvn clean test ^
+                -DsuiteXmlFile=smoke_testng.xml ^
+                -Denv=%ENV%
+                """
             }
         }
 
@@ -35,8 +50,13 @@ pipeline {
                 triggeredBy 'TimerTrigger'
             }
             steps {
-                echo 'Running Regression Tests (Scheduled 7 PM)...'
-                bat 'mvn clean test -DsuiteXmlFile=regression_testng.xml'
+                echo 'Running Regression Tests (Every 8 Minutes)...'
+
+                bat """
+                mvn clean test ^
+                -DsuiteXmlFile=regression_testng.xml ^
+                -Denv=%ENV%
+                """
             }
         }
     }
@@ -52,9 +72,10 @@ Automation Test Execution Completed
 
 Job Name: ${env.JOB_NAME}
 Build Number: ${env.BUILD_NUMBER}
+Environment: ${ENV}
 Status: ${currentBuild.currentResult}
 
-Report:
+Build URL:
 ${env.BUILD_URL}
 """,
                 to: "akshay.shinde9522@gmail.com",
