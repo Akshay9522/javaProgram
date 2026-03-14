@@ -17,4 +17,8 @@ public class AdvanceProgram2 {
 		}
 		return res;
 	}
+	
+	public static void charOccurance() {
+		
+	}
 }
